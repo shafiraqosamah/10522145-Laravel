@@ -11,6 +11,9 @@
 1. Pengenalan Framework Laravel
 2. Dasar Controller pada Laravel
 3. Dasar Model & Database Migration pada Laravel
+4. Interaksi Model dengan Controller
+5. File Upload pada Laravel
+6. Introducing Eloquent ORM
    
 ## About Laravel
 
