@@ -9,31 +9,58 @@ class PelangganController extends Controller
 {
     public function index()
     {
-        $pelanggan = Pelanggan::orderBy('id', 'desc')->get(); 
-        return view('pelanggan.list', compact('pelanggan'));
+        $result = Pelanggan::orderBy('id', 'desc')->get();
+        return view('pelanggan.list', compact('result'));
+    }
+
+    public function create()
+    {
+        return view('pelanggan.form');
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'nama_lengkap' => 'required',
+            'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required',
-            'nomor_hp' => 'required',
-            'email' => 'required|email',
-            'foto' => 'image|mimes:jpg,png,jpeg|max:2048'
+            'no_hp' => 'required',
+            'alamat' => 'required',
+            'email' => 'required|email'
         ]);
 
-        $data = $request->all();
+        Pelanggan::create($request->all());
 
-        if ($request->hasFile('foto')) {
-            $file = $request->file('foto');
-            $namaFile = time().'_'.$file->getClientOriginalName();
-            $file->storeAs('pelanggan', $namaFile);
-            $data['foto'] = $namaFile;
-        }
+        return redirect('/pelanggan')->with('success', 'Data berhasil disimpan');
+    }
 
-        Pelanggan::create($data);
+    public function edit($id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+        return view('pelanggan.form', compact('pelanggan'));
+    }
 
-        return redirect('/pelanggan/list');
+    public function update(Request $request, $id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+
+        $request->validate([
+            'nama_lengkap' => 'required|string|max:100',
+            'jenis_kelamin' => 'required',
+            'no_hp' => 'required',
+            'alamat' => 'required',
+            'email' => 'required|email'
+        ]);
+
+        $pelanggan->update($request->all());
+
+        return redirect('/pelanggan')->with('success', 'Data berhasil diupdate');
+    }
+
+    public function destroy($id)
+    {
+        $pelanggan = Pelanggan::findOrFail($id);
+        $pelanggan->delete();
+
+        return redirect('/pelanggan')->with('success', 'Data berhasil dihapus');
     }
 }

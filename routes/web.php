@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PelangganController;
 
 Route::get('/', function () {
     return redirect('/route-biodata');
@@ -36,15 +38,30 @@ Route::get('/route-produk', function () {
     return view('view-produk', compact('nama_produk', 'warna', 'ukuran', 'stok'));
 });
 
-Route::get('/pelanggan', function () {
-    return view('pelanggan.form');
-});
+// ROUTE PELANGGAN
 
-Route::post('/pelanggan/store', [App\Http\Controllers\PelangganController::class, 'store']);
+Route::get('/pelanggan', [PelangganController::class, 'index']);
+Route::get('/pelanggan/create', [PelangganController::class, 'create']);
+Route::post('/pelanggan/create', [PelangganController::class, 'store']);
+Route::get('/pelanggan/{id}/edit', [PelangganController::class, 'edit']);
+Route::post('/pelanggan/{id}/update', [PelangganController::class, 'update']);
+Route::post('/pelanggan/{id}/delete', [PelangganController::class, 'destroy']);
 
-Route::get('/pelanggan/list', [App\Http\Controllers\PelangganController::class, 'index']);
-
-// --KODE UNTUK TUGAS Tantangan 2 Controller--
+// INI ROUTE PRODUK
+Route::get('/produk', [ProdukController::class, 'index']);
 Route::get('/produk/create', [ProdukController::class, 'create']);
 Route::post('/produk/create', [ProdukController::class, 'store']);
-Route::get('/produk/list', [ProdukController::class, 'index']);
+
+Route::get('/produk/{id}/edit', [ProdukController::class, 'edit']);
+Route::post('/produk/{id}/update', [ProdukController::class, 'update']);
+Route::post('/produk/{id}/delete', [ProdukController::class, 'destroy']);
+
+// INI ROUTE KATEGORI
+
+
+Route::get('/kategori', [KategoriController::class, 'index']);
+Route::get('/kategori/create', [KategoriController::class, 'create']);
+Route::post('/kategori/create', [KategoriController::class, 'store']);
+Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit']);
+Route::post('/kategori/{id}/update', [KategoriController::class, 'update']);
+Route::post('/kategori/{id}/delete', [KategoriController::class, 'destroy']);
