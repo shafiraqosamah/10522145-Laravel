@@ -23,7 +23,7 @@ class PelangganController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required',
-            'no_hp' => 'required',
+            'nomor_hp' => 'required',
             'alamat' => 'required',
             'email' => 'required|email'
         ]);

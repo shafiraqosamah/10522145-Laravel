@@ -32,7 +32,7 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $item->nama_lengkap }}</td>
             <td>{{ $item->jenis_kelamin }}</td>
-            <td>{{ $item->no_hp }}</td>
+            <td>{{ $item->nomor_hp }}</td>
             <td>{{ $item->email }}</td>
             <td>
                 <a href="{{ url('pelanggan/'.$item->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>

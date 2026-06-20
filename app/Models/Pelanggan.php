@@ -15,7 +15,7 @@ class Pelanggan extends Model
         'nama_lengkap',
         'jenis_kelamin',
         'nomor_hp',
-        'email',
-        'foto'
+        'alamat',
+        'email'
     ];
 }

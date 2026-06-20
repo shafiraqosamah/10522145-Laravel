@@ -39,8 +39,8 @@
 
         <div class="mb-3">
             <label>No HP</label>
-            <input type="text" name="no_hp" class="form-control"
-                value="{{ old('no_hp', $pelanggan->no_hp ?? '') }}">
+           <input type="text" name="nomor_hp"
+                value="{{ old('nomor_hp', $pelanggan->nomor_hp ?? '') }}">
         </div>
 
         <div class="mb-3">
