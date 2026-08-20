@@ -14,7 +14,8 @@
 4. Interaksi Model dengan Controller
 5. File Upload pada Laravel
 6. Introducing Eloquent ORM
-   
+7. Authentication and Authorization pada Laravel
+      
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
