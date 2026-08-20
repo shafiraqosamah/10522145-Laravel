@@ -7,10 +7,21 @@ use App\Models\Pelanggan;
 
 class PelangganController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $result = Pelanggan::orderBy('id', 'desc')->get();
-        return view('pelanggan.list', compact('result'));
+        $q = $request->get('q');
+
+        $result = Pelanggan::when($q, function ($query, $q) {
+            $query->where('nama_lengkap', 'like', '%'.$q.'%')
+                ->orWhere('jenis_kelamin', 'like', '%'.$q.'%')
+                ->orWhere('nomor_hp', 'like', '%'.$q.'%')
+                ->orWhere('email', 'like', '%'.$q.'%');
+        })
+        ->orderBy('id', 'desc')
+        ->paginate(5)
+        ->withQueryString();
+
+        return view('pelanggan.list', compact('result', 'q'));
     }
 
     public function create()
@@ -46,7 +57,7 @@ class PelangganController extends Controller
         $request->validate([
             'nama_lengkap' => 'required|string|max:100',
             'jenis_kelamin' => 'required',
-            'no_hp' => 'required',
+            'nomor_hp' => 'required',
             'alamat' => 'required',
             'email' => 'required|email'
         ]);

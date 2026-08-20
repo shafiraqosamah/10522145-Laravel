@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\LoginController;
 
 Route::get('/', function () {
-    return redirect('/route-biodata');
+    return view('dashboard');
 });
 
 Route::get('/route-biodata', function () {
@@ -65,3 +66,8 @@ Route::post('/kategori/create', [KategoriController::class, 'store']);
 Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit']);
 Route::post('/kategori/{id}/update', [KategoriController::class, 'update']);
 Route::post('/kategori/{id}/delete', [KategoriController::class, 'destroy']);
+
+//LOGIN
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/redirect/google', [LoginController::class, 'redirectToGoogle']);
+Route::get('/callback/google', [LoginController::class, 'googleCallback']);

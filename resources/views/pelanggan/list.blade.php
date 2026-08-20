@@ -9,43 +9,60 @@
 
     <h2>Data Pelanggan</h2>
 
-    <a href="{{ url('pelanggan/create') }}" class="btn btn-primary mb-3">Tambah</a>
-
     @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
     @endif
 
+    <!-- SEARCH + TOMBOL -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        
+        <form method="GET" action="{{ url('pelanggan') }}" style="width: 70%;">
+            <input type="text" name="q" value="{{ $q ?? '' }}" placeholder="Cari" class="form-control">
+        </form>
+
+        <a href="{{ url('pelanggan/create') }}" class="btn btn-primary">Tambah</a>
+    </div>
+
+    <!-- TABLE -->
     <table class="table table-bordered">
-        <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>Jenis Kelamin</th>
-            <th>No HP</th>
-            <th>Email</th>
-            <th>Aksi</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Jenis Kelamin</th>
+                <th>No HP</th>
+                <th>Email</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
 
-        @foreach($result as $item)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $item->nama_lengkap }}</td>
-            <td>{{ $item->jenis_kelamin }}</td>
-            <td>{{ $item->nomor_hp }}</td>
-            <td>{{ $item->email }}</td>
-            <td>
-                <a href="{{ url('pelanggan/'.$item->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+        <tbody>
+            @foreach($result as $item)
+            <tr>
+                <td>{{ ($result->currentPage()-1) * $result->perPage() + $loop->iteration }}</td>
+                <td>{{ $item->nama_lengkap }}</td>
+                <td>{{ $item->jenis_kelamin }}</td>
+                <td>{{ $item->nomor_hp }}</td>
+                <td>{{ $item->email }}</td>
+                <td>
+                    <a href="{{ url('pelanggan/'.$item->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
 
-                <form action="{{ url('pelanggan/'.$item->id.'/delete') }}" method="POST" style="display:inline;">
-                    @csrf
-                    <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">Hapus</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-
+                    <form action="{{ url('pelanggan/'.$item->id.'/delete') }}" method="POST" style="display:inline;">
+                        @csrf
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
     </table>
+
+    <!-- PAGINATION -->
+    <div class="d-flex justify-content-end">
+        {{ $result->links('pagination::bootstrap-5') }}
+    </div>
 
 </div>
 </body>
